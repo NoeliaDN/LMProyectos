@@ -1,0 +1,105 @@
+/* Estilos básicos */
+body {
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+/* Estilo del encabezado (header) */
+header {
+    background: #4CAF50; 
+    color: white; 
+    padding: 1rem; 
+    text-align: center; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+/* Estilo de los enlaces del menú de navegación */
+header nav a {
+    margin: 0 1rem; /* Añade espacio horizontal entre los enlaces */
+    color: white;    
+}
+
+/* Estilo para el logo */
+.logo {
+    width: 300px; 
+    height: auto; 
+    vertical-align: middle; 
+    margin-right: 10px; 
+}
+
+/* Estilo para las imágenes en la lista de datos */
+.data-icon {
+    width: 200px; 
+    height: auto; 
+    margin-right: 8px; 
+}
+/* Contenedor principal con Grid */
+.container {    
+    height: 100vh;
+}
+
+/* Asignación de áreas en el grid */
+
+
+.sidebar {   
+    background: #f0f0f0; /* Fondo gris claro */
+    padding: 1rem; /* Espaciado interno */
+}
+
+/* Estilo de la lista del sidebar */
+.sidebar ul {  
+    padding: 0; 
+}
+
+.sidebar ul li {
+    margin-bottom: 1rem; 
+}
+
+.sidebar ul li a {
+    text-decoration: none; 
+    color: #333; 
+}
+
+main {
+    padding: 1rem; 
+}
+
+footer {
+    background: #4CAF50; 
+    color: white; 
+    text-align: center; 
+    padding: 1rem; 
+}
+
+/* Grid para la sección de categorías*/
+.stats {   
+    gap: 1rem; 
+    margin-bottom: 2rem; 
+}
+
+/* Estilo de las cajas de categorías */
+.stat-box {
+    background: #e0e0e0; 
+    padding: 1rem; 
+    text-align: center; 
+    border-radius: 8px; 
+}
+
+/* Flexbox para la lista de tipos de vivienda */
+.data ul {
+    gap: 1rem; 
+    list-style: none; 
+    padding: 0; 
+}
+
+.data ul li {
+    background: #f4f4f4; 
+    padding: 1rem; 
+    border-radius: 4px; 
+    text-align: center; 
+}
+
+
