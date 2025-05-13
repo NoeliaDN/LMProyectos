@@ -1,0 +1,133 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+.logo {
+    max-width: 100%;
+    /* Para que no exceda el ancho de la imagen */
+    height: auto;
+    /* Le damos una altura automatica para que se adapte a las propiedades de la imagen*/
+    width: 300px;
+    display: block;
+    /* Para que la almendra ocupe una fila y lo demás se vaya para abajo */
+    /* Al ponerle display block, se coloca por defecto a la izquierda, así que tenemos que centrarla:  */
+    margin: 0 auto;
+    /* auto para centrar la imagen, porque con auto le decimos que deje el mismo 
+espacio en una lado que en otro. */
+}
+
+.productos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.tarjeta {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 calc(16.66% - 20px);
+    /* 6 tarjetas por fila */
+    max-width: calc(16.66% - 20px);
+    /* Ancho máximo de cada tarjeta */
+    min-width: 200px;
+    /* Ancho mínimo de cada tarjeta */
+}
+
+.tarjeta img {
+    width: 100%;
+    height: auto;
+}
+
+.tarjeta h2 {
+    margin: 10px 0;
+}
+
+.tarjeta p {
+    margin: 5px 0;
+}
+
+.tarjeta .precio {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.tarjeta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1200px) {
+
+    /* se aplica si baja de 1200px */
+    .logo {
+        width: 250px;
+        /* Cambia el ancho de la imagen */
+    }
+
+    header {
+        background-color: blue;
+    }
+
+    .tarjeta {
+        flex: 1 1 calc(25% - 20px);
+        /* 6 tarjetas por fila */
+        max-width: calc(25% - 20px);
+    }
+}
+
+@media (max-width: 900px) {
+
+    /* se aplica si baja de 900px */
+    .logo {
+        width: 200px;
+    }
+
+    header {
+        background-color: red;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    /* se aplica si baja de 600px */
+    .logo {
+        width: 150px;
+    }
+
+    header {
+        background-color: yellow;
+    }
+}
+
+@media (max-width: 400px) {
+
+    /* se aplica si baja de 400px */
+    .logo {
+        width: 100px;
+    }
+
+    header {
+        background-color: green;
+    }
+}
