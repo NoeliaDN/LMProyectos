@@ -1,0 +1,1 @@
+Utilizando solo clases de Bootstrap para mejorar el diseño de la página y hacerlo responsivo.
