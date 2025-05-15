@@ -1,0 +1,214 @@
+/* Estilos básicos */
+body {
+    font-family: Arial, sans-serif; /* Establece la fuente principal de la página */
+    margin: 0; /* Elimina el margen predeterminado del navegador */
+    padding: 0; /* Elimina el relleno predeterminado del navegador */
+    box-sizing: border-box; /* Asegura que padding y border se incluyan en el tamaño total del elemento */
+}
+
+/* Estilo del encabezado (header) */
+header {
+    background: #4CAF50; /* Define el color de fondo verde */
+    color: white; /* Establece el color del texto como blanco */
+    padding: 1rem; /* Añade espacio interno (padding) en el encabezado */
+    text-align: center; /* Centra el contenido del texto en el encabezado */
+    display: flex; /* Aplica Flexbox para alinear elementos dentro del header */
+    justify-content: space-between; /* Distribuye los elementos de forma equitativa, dejando espacio entre ellos */
+    align-items: center; /* Alinea los elementos verticalmente en el centro */
+}
+
+/* Estilo de los enlaces del menú de navegación */
+header nav a {
+    margin: 0 1rem; /* Añade espacio horizontal entre los enlaces */
+    color: white; /* Establece el color del texto en blanco */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+/* Estilo para el logo en el encabezado */
+.logo {
+    width: 250px; /* Ajusta el tamaño del logo */
+    height: auto; /* Mantiene las proporciones */
+    vertical-align: middle; /* Alinea el logo con el texto */
+    margin-right: 10px; /* Añade espacio entre el logo y el texto */
+}
+
+/* Estilo para las imágenes en la lista de datos */
+.data-icon {
+    width: 200px; /* Tamaño de las imágenes */
+    height: auto; /* Mantiene las proporciones */
+    margin-right: 8px; /* Espaciado entre la imagen y el texto */
+    vertical-align: middle; /* Alinea la imagen con el texto */
+}
+
+
+/* Contenedor principal con Grid */
+.container {
+    display: grid; /* Utiliza Grid para estructurar las áreas principales */
+    grid-template-areas: 
+        "header header" /* Define la posición del header ocupando dos columnas */
+        "sidebar main"  /* Define la posición del sidebar y el main en la misma fila */
+        "footer footer"; /* Define la posición del footer ocupando dos columnas */
+    grid-template-columns: 2% 98%; /* Establece que el sidebar ocupe el 20% y el main el 80% del ancho */
+    grid-template-rows: auto 1fr auto; /* Define el alto de las filas: automático para header y footer, y flexible para main */
+    height: 100vh; /* Hace que el contenedor ocupe el 100% de la altura de la ventana */
+    transition: all 0.3s ease; /* Suaviza la transición del grid */
+
+}
+
+/* Asignación de áreas en el grid */
+header {
+    grid-area: header; /* Asigna el header al área "header" definida en grid-template-areas */
+}
+
+.sidebar-container {
+   
+    width: 20px;
+    height: 100%;
+    background-color: transparent;
+    
+  
+}
+
+
+.sidebar {
+    position:relative;
+    grid-area: sidebar; /* Asigna el sidebar al área "sidebar" definida en grid-template-areas */
+    background: #f0f0f0; /* Fondo gris claro */
+    padding: 1rem; /* Espaciado interno */
+    width: 250px;
+    height: 95%;   
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    grid-template-rows: auto 1fr auto; /* Asegura que el sidebar/main ocupen sólo la segunda fila */
+
+}
+
+.container:has(.sidebar-container:hover) {  
+  
+    grid-template-columns: 25% 75%; /* Ajusta la plantilla de columnas */
+}
+
+.sidebar-container:hover .sidebar{
+    transform: translateX(0);
+}
+
+
+
+
+/* Estilo de la lista del sidebar */
+.sidebar ul {
+    list-style: none; /* Elimina los puntos o números de la lista */
+    padding: 0; /* Elimina el relleno predeterminado */
+}
+
+.sidebar ul li {
+    margin-bottom: 1rem; /* Añade espacio entre los elementos de la lista */
+}
+
+.sidebar ul li a {
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    color: #333; /* Establece el color del texto en gris oscuro */
+}
+
+main {
+    grid-area: main; /* Asigna el main al área "main" definida en grid-template-areas */
+    padding: 1rem; /* Espaciado interno del contenedor principal */
+}
+
+footer {
+    grid-area: footer; /* Asigna el footer al área "footer" definida en grid-template-areas */
+    background: #4CAF50; /* Color de fondo verde */
+    color: white; /* Texto blanco */
+    text-align: center; /* Centra el texto */
+    padding: 1rem; /* Espaciado interno */
+}
+
+/* Grid para la sección de estadísticas */
+.stats {
+    display: grid; /* Utiliza Grid para estructurar las estadísticas */
+    grid-template-columns: repeat(3, 1fr); /* Crea 3 columnas de igual ancho */
+    gap: 1rem; /* Añade un espacio de 1rem entre los elementos */
+    margin-bottom: 2rem; /* Espaciado inferior entre estadísticas y otros elementos */
+}
+
+/* Estilo de las cajas de estadísticas */
+.stat-box {
+    background: #e0e0e0; /* Fondo gris claro */
+    padding: 1rem; /* Espaciado interno de la caja */
+    text-align: center; /* Centra el contenido del texto */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Flexbox para la lista de datos */
+.data ul {
+    display: flex; /* Activa Flexbox para la lista */
+    flex-wrap: wrap; /* Permite que los elementos pasen a una nueva fila si no hay espacio */
+    gap: 1rem; /* Espaciado entre los elementos */
+    list-style: none; /* Elimina los puntos o números de la lista */
+    padding: 0; /* Elimina el relleno predeterminado */
+}
+
+.data ul li {
+    background: #f4f4f4; /* Fondo gris claro */
+    padding: 1rem; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+    flex: 1 1 calc(33% - 1rem); /* Cada elemento ocupa un tercio del ancho menos el gap */
+    text-align: center; /* Centra el texto */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        grid-template-areas: 
+            "header"
+            "sidebar"
+            "main"
+            "footer"; /* Reorganiza las áreas en una sola columna */
+        grid-template-columns: 1fr; /* Todo ocupa el 100% del ancho */
+        grid-template-rows: auto auto 1fr auto; /* Ajusta las filas para la nueva disposición */
+    }
+
+    /* Cambiar header a display: grid */
+    header {
+        display: grid; /* Cambiar a grid */
+        grid-template-areas: 
+            "logo"
+            "nav"; /* Reorganiza las áreas */
+        grid-template-columns: 1fr; /* Una sola columna */
+        gap: 1rem; /* Espaciado entre elementos */
+        text-align: center; /* Asegura que el contenido esté centrado */
+    }
+
+    .logo-container {
+        grid-area: logo; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        gap: 1rem; 
+    }
+
+    nav {
+        grid-area: nav;
+        display: flex; 
+        justify-content: center; 
+        gap: 1rem; 
+    }
+
+    .sidebar-container {
+        width: 100%;
+    }
+
+    .sidebar {
+        width: 100%;
+        transform: none;
+        height: auto;
+    }
+
+    .container:has(.sidebar-container:hover) {       
+        grid-template-columns: 100%; 
+    }
+
+    .stats {
+        grid-template-columns: 1fr; 
+    }
+}
