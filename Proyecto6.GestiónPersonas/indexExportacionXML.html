@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Modificación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .contenedor {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            margin: auto;
+            margin-top: 20px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 8px;
+            width: 90%;
+            font-size: 16px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+        .edit-button {
+            background: #ffc107;
+            color: black;
+        }
+        .delete-button {
+            background: #dc3545;
+        }
+        .genero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .genero label{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Formulario para Agregar y Modificar Personas</h2>
+
+    <div class="contenedor">
+        <input type="text" id="nombre" placeholder="Nombre">
+        <input type="number" id="edad" placeholder="Edad">
+        <input type="text" id="ocupacion" placeholder="Ocupación">
+    
+        <div class="genero">
+            <label><input type="radio" name="genero" value="Masculino"> Masculino</label>
+            <label><input type="radio" name="genero" value="Femenino"> Femenino</label>
+            <label><input type="radio" name="genero" value="Otro"> Otro</label>
+        </div>
+    
+        <button id="agregar">Agregar Persona</button>
+        <button id="actualizar" style="display: none;">Actualizar Persona</button>
+    </div>
+
+    <div>
+        <button onclick="descargarXML()">Descargar XML</button>
+        
+    </div>
+
+    <h3>Lista de Personas</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Ocupación</th>
+                <th>Género</th>
+                <th>Acción</th>             
+            </tr>
+        </thead>
+        <tbody id="tablaPersonas"></tbody>
+    </table>
+
+    <script>
+
+
+        let personas =  JSON.parse(localStorage.getItem("personas")) || [];
+        //[{"nombre":"Ana","edad":30}{"nombre":"Ana","edad":30}{"nombre":"Ana","edad":30}]
+        let editIndex = -1; // Índice del elemento en edición
+
+        window.onload = () => {
+            actualizarTabla();
+        };
+
+
+        document.querySelector("#agregar").addEventListener("click", function() {
+            let nombre = document.querySelector("#nombre").value.trim();
+            let edad = document.querySelector("#edad").value.trim();
+            let ocupacion = document.querySelector("#ocupacion").value.trim();
+            let generoSeleccionado = document.querySelector('input[name="genero"]:checked');
+            let genero = generoSeleccionado ? generoSeleccionado.value : "No seleccionado";
+
+            if (nombre === "" || edad === "" || ocupacion === "") {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            let persona = {
+                nombre: nombre,
+                edad: edad,
+                ocupacion: ocupacion,
+                genero: genero
+            };
+
+            personas.push(persona);
+            guardarLocalStorage();
+            limpiarFormulario();
+            actualizarTabla();
+        });
+
+        function actualizarTabla() {
+            let tabla = document.querySelector("#tablaPersonas");
+            tabla.innerHTML = "";
+
+            personas.forEach((persona, index) => {
+                let fila = `
+                    <tr> 
+                        <td>${persona.nombre}</td> 
+                        <td>${persona.edad}</td>
+                        <td>${persona.ocupacion}</td>
+                        <td>${persona.genero}</td>
+                        <td>
+                            <button class="edit-button" onclick="editarPersona(${index})">Modificar</button>
+                            <button class="delete-button" onclick="borrarPersona(${index})">Eliminar</button>
+                        </td>
+                    </tr>`;
+                tabla.innerHTML += fila;
+            });
+        }
+
+        function borrarPersona(index) {
+            personas.splice(index, 1);
+            guardarLocalStorage();
+            actualizarTabla();
+        }
+
+        function editarPersona(index) {
+            let persona = personas[index];
+
+            document.querySelector("#nombre").value = persona.nombre;
+            document.querySelector("#edad").value = persona.edad;
+            document.querySelector("#ocupacion").value = persona.ocupacion;
+
+            let radios = document.querySelectorAll('input[name="genero"]');
+            radios.forEach(radio => {
+                if (radio.value === persona.genero) {
+                    radio.checked = true;
+                }
+            });
+
+            document.querySelector("#agregar").style.display = "none";
+            document.querySelector("#actualizar").style.display = "block";
+
+            editIndex = index;
+        }
+
+        document.querySelector("#actualizar").addEventListener("click", function() {
+
+
+            let nombre = document.querySelector("#nombre").value.trim();
+            let edad = document.querySelector("#edad").value.trim();
+            let ocupacion = document.querySelector("#ocupacion").value.trim();
+            let generoSeleccionado = document.querySelector('input[name="genero"]:checked');
+            let genero = generoSeleccionado ? generoSeleccionado.value : "No seleccionado";
+
+            if (nombre === "" || edad === "" || ocupacion === "") {
+                    alert("Por favor, completa todos los campos.");
+                    return;
+                }
+                
+
+                let persona = {
+                    nombre : nombre,
+                    edad : edad,
+                    ocupacion : ocupacion,
+                    genero: genero
+                };
+
+                personas[editIndex] = persona;
+                guardarLocalStorage();
+
+                limpiarFormulario();
+                actualizarTabla();
+
+                document.querySelector("#agregar").style.display = "block";
+                document.querySelector("#actualizar").style.display = "none";
+                
+                editIndex = -1;
+
+            });
+
+        function limpiarFormulario() {
+            document.querySelector("#nombre").value = "";
+            document.querySelector("#edad").value = "";
+            document.querySelector("#ocupacion").value = "";
+            let radios = document.querySelectorAll('input[name="genero"]');
+            radios.forEach(radio => radio.checked = false);//ponemos a false tdos los radios
+        }
+
+        function guardarLocalStorage(){
+            localStorage.setItem( "personas"  , JSON.stringify(personas)); 
+            //setItem sirve para guardar en el localStorage
+            //JSON.stringify convierte un objeto de JavaScript en una cadena JSON
+        }
+
+        function descargarXML(){
+
+
+            let xml = '<?xml version="1.0" encoding="UTF-8"?> ';//declaramos la cabecera del xml
+            xml += '<personas>';
+            personas.forEach( p => {
+                xml += `<persona>
+                    <nombre>${p.nombre}</nombre>
+                    <edad>${p.edad}</edad>
+                    <ocupacion>${p.ocupacion}</ocupacion>
+                    <genero>${p.genero}</genero>
+                </persona>` 
+                             
+            }); 
+            
+            xml += '</personas>'; //cerramos la etiqueta personas
+
+            const blob = new Blob( [xml]   , { type: "application/xml"});
+            //creamos un blob con el contenido del xml y le decimos que es de tipo xml
+            //Blob es un objeto que representa un archivo o datos en bruto
+
+
+            const a = document.createElement("a");//creamos un elemento <a> para descargar el archivo
+
+            a.href = URL.createObjectURL(blob);//creamos un objeto URL para el blob
+            //URL.createObjectURL crea una URL temporal para el blob
+
+            a.download = "personas.xml";//le decimos que el nombre del archivo a descargar es personas.xml
+
+
+            a.click();//simulamos un clic en el enlace para iniciar la descarga
+
+
+
+        }
+        
+    
+
+    </script>
+
+</body>
+</html>
