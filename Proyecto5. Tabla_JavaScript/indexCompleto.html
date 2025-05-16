@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Estático con Tabla</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .contenedor {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            margin: auto;
+            margin-top: 20px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 8px;
+            width: 90%;
+            font-size: 16px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Formulario para Agregar Personas</h2>
+
+    <div class="contenedor">
+
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="number" id="edad" placeholder="Edad">
+            <input type="text" id="ocupacion" placeholder="Ocupación">
+            <button id="agregar">Agregar Persona</button>
+    </div>
+
+    <h3>Lista de Personas</h3>
+    <table>
+        <thead><!--título columnas-->
+            <tr><!--fila-->
+                <th>Nombre</th><!--columna-->
+                <th>Edad</th>
+                <th>Ocupación</th>
+                <th>Acción</th>             
+            </tr>
+        </thead>
+        <tbody id="tablaPersonas">
+           
+            
+        </tbody>
+    </table>
+
+    <script>
+
+        let personas =[];
+
+        document.getElementById("agregar").addEventListener("click", function() {
+            let nombre = document.getElementById("nombre").value.trim();
+            let edad = document.getElementById("edad").value.trim();
+            let ocupacion = document.getElementById("ocupacion").value.trim();
+
+            if (nombre === "" || edad === "" || ocupacion === "") {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+            let persona = {
+                nombre : nombre,
+                edad : edad,
+                ocupacion : ocupacion
+            };
+
+        personas.push(persona);
+
+        //limpiar el formulario
+        document.getElementById("nombre").value = "";
+        document.getElementById("edad").value = "";
+        document.getElementById("ocupacion").value = "";
+
+      
+        actualizarTabla();
+    
+    });
+
+    function actualizarTabla() {
+
+        let tabla =document.getElementById("tablaPersonas");
+        tabla.innerHTML = "";
+
+        for (let i = 0; i<personas.length; i++) {
+         
+            let fila = `
+            <tr> 
+                <td>${personas[i].nombre}</td> 
+                <td>${personas[i].edad}</td>
+                <td>${personas[i].ocupacion}</td>           
+                <td><button onclick="borrarPersona(${i})">Eliminar</button>  </td>
+            </tr> 
+            `; 
+            tabla.innerHTML += fila;
+        }
+
+    }
+
+    function borrarPersona(rodolfo){
+        personas.splice(rodolfo, 1);
+        actualizarTabla();
+    }
+  
+
+    </script>
+
+</body>
+</html>
