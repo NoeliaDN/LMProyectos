@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Cepillos de Dientes</title>
+    
+    <!-- Enlace a Bootstrap vía CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Enlace a Bootstrap: Permite utilizar las clases y componentes de diseño sin necesidad de CSS adicional -->
+</head>
+<body>
+
+    <!-- Contenedor principal de Bootstrap -->
+    <div class="container mt-4">
+        <!-- Clase 'container': Centra el contenido y aplica márgenes automáticos -->
+        <!-- Clase 'mt-4': Añade margen superior de 1.5rem para separar el contenido de la parte superior -->
+
+        <!-- Cabecera -->
+        <header class="bg-primary text-white text-center p-4 rounded">
+            <!-- 'bg-primary': Aplica un fondo azul (color predeterminado de Bootstrap para el "primary") -->
+            <!-- 'text-white': Cambia el color del texto a blanco -->
+            <!-- 'text-center': Centra el contenido del header -->
+            <!-- 'p-4': Aplica un padding de 1.5rem en todos los lados para espaciado interno -->
+            <!-- 'rounded': Aplica esquinas redondeadas al contenedor -->
+
+            <h1>Todo sobre Cepillos de Dientes</h1>
+            <p class="lead">
+                <!-- 'lead': Aplica un estilo destacado al párrafo, haciéndolo más grande y resaltado -->
+                Guía completa para elegir el cepillo adecuado para ti
+            </p>
+        </header>
+
+        <!-- Sección con 3 columnas responsivas -->
+        <div class="row mt-4">
+            <!-- 'row': Activa el sistema de **grid de Bootstrap**, permitiendo colocar las columnas en línea -->
+            <!-- 'mt-4': Agrega un margen superior de 1.5rem para separarlo del header -->
+
+            <!-- Primera columna: Cepillos Manuales -->
+            <section class="col-md-4 text-center">
+                <!-- 'col-md-4': En pantallas medianas (md ≥ 768px), ocupa 4 columnas de 12 disponibles -->
+                <!-- 'text-center': Centra el texto dentro de la sección -->
+
+                <h2 class="h4">Cepillos Manuales</h2>
+                <!-- 'h4': Establece el tamaño del texto como un encabezado de nivel 4 -->
+
+                <img src="images/manual.jpg" alt="Cepillo de dientes manual" class="img-fluid rounded shadow-sm mb-3">
+                <!-- 'img-fluid': Hace que la imagen sea **responsiva**, ajustándose al ancho del contenedor -->
+                <!-- 'rounded': Aplica bordes redondeados -->
+                <!-- 'shadow-sm': Agrega una ligera sombra alrededor de la imagen -->
+                <!-- 'mb-3': Aplica un margen inferior de 1rem para separar la imagen del texto -->
+
+                <p>Los cepillos manuales son los más tradicionales. Ideales para quienes prefieren un control total sobre la presión y el movimiento al cepillarse.</p>
+            </section>
+
+            <!-- Segunda columna: Cepillos Eléctricos -->
+            <section class="col-md-4 text-center">
+                <h2 class="h4">Cepillos Eléctricos</h2>
+                <img src="images/electrico.jpg" alt="Cepillo de dientes eléctrico" class="img-fluid rounded shadow-sm mb-3">
+                <p>Los cepillos eléctricos son una excelente opción para quienes buscan una limpieza más profunda. Ayudan a eliminar más placa con menor esfuerzo.</p>
+            </section>
+
+            <!-- Tercera columna: Cepillos Interdentales -->
+            <section class="col-md-4 text-center">
+                <!-- 'col-md-4': 
+                     - Define que esta columna ocupará 4 de las 12 columnas disponibles en Bootstrap Grid en pantallas medianas (>= 768px).
+                     - Alternativas:
+                       - 'col-lg-4' para que solo se aplique en pantallas grandes (>= 992px).
+                       - 'col-sm-6' para que en pantallas pequeñas (<768px) ocupe 6 columnas en lugar de 4.
+                       - 'col-12' para que en pantallas muy pequeñas (<576px) la sección ocupe el 100% del ancho. -->
+            
+                <!-- 'text-center': 
+                     - Centra horizontalmente todo el contenido dentro de esta sección (títulos, imagen, párrafo).
+                     - Alternativas:
+                       - 'text-start' para alinear el texto a la izquierda.
+                       - 'text-end' para alinearlo a la derecha. -->
+            
+                <h2 class="h4">Cepillos Interdentales</h2>
+                <!-- 'h4': 
+                     - Reduce el tamaño del encabezado manteniendo la jerarquía semántica.
+                     - Alternativa: 'display-4' para un encabezado mucho más grande. -->
+            
+                <img src="images/interdental.jpg" alt="Cepillo interdental" class="img-fluid rounded shadow-sm mb-3">
+                <!-- 'img-fluid': 
+                     - Hace que la imagen sea responsive, adaptando su tamaño automáticamente dentro del contenedor padre.
+                     - Alternativa: Sin esta clase, la imagen podría desbordar la sección en pantallas pequeñas. -->
+            
+                <!-- 'rounded': 
+                     - Aplica bordes redondeados a la imagen.
+                     - Alternativas:
+                       - 'rounded-circle' para hacer la imagen completamente circular.
+                       - 'rounded-0' para eliminar bordes redondeados. -->
+            
+                <!-- 'shadow-sm': 
+                     - Añade una sombra suave alrededor de la imagen.
+                     - Alternativas:
+                       - 'shadow' para una sombra de tamaño mediano.
+                       - 'shadow-lg' para una sombra más pronunciada.
+                       - 'shadow-none' para eliminar cualquier sombra. -->
+            
+                <!-- 'mb-3': 
+                     - Añade un margen inferior (margin-bottom) de 1rem para separar la imagen del texto.
+                     - Alternativas:
+                       - 'mb-5' para un margen inferior más grande.
+                       - 'mb-0' para eliminar el margen inferior. -->
+            
+                <p>
+                    Los cepillos interdentales están diseñados para limpiar entre los dientes. 
+                    Son especialmente útiles para personas con ortodoncia o espacios amplios entre los dientes.
+                </p>
+            </section>
+            
+        </div>
+
+        <!-- Pie de página -->
+        <footer class="bg-dark text-white text-center py-3 mt-4 rounded">
+            <!-- 'bg-dark': Fondo negro para el footer -->
+            <!-- 'text-white': Texto en color blanco para mejor contraste -->
+            <!-- 'text-center': Centra el contenido -->
+            <!-- 'py-3': Padding vertical de 1rem (espaciado interno) -->
+            <!-- 'mt-4': Margen superior de 1.5rem para separarlo del contenido -->
+            <!-- 'rounded': Esquinas redondeadas en el footer -->
+
+            <p>&copy; 2025 Guía de Cepillos de Dientes. Todos los derechos reservados.</p>
+        </footer>
+
+    </div>
+
+    <!-- Bootstrap JS para funcionalidades interactivas (opcional, solo necesario si usas componentes como modales o botones colapsables) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
