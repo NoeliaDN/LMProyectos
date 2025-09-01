@@ -1,6 +1,6 @@
 Practicando JavaScript:
-- vectores
-- eventos
+- Vectores
+- Eventos
 - getElementById
-- tablas
+- Tablas
 
