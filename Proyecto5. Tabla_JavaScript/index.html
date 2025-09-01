@@ -66,25 +66,27 @@
 
     <div class="contenedor">
 
-        <input type="text" name="nombre" placeholder="Nombre" required>
-        <input type="number" name="edad" placeholder="Edad" required>
-        <input type="text" name="ocupacion" placeholder="Ocupación" required>
-        <button id="agregar">Agregar Persona</button>
+        <input type="text" id="nombre" placeholder="Nombre"><!--cambiamos name= a id=-->
+        <input type="number" id="edad" placeholder="Edad">
+        <input type="text" id="ocupacion" placeholder="Ocupación"> <!--required ya no hace falta porque no es un form-->
+        <button id="agregar">Agregar Persona</button> <!--ponemos id para observar el botón-->
 
     </div>
 
     <h3>Lista de Personas</h3>
     <table>
-        <thead>
-            <tr>
+        <thead><!-- título columnas-->
+            <tr><!-- fila-->
+                <!-- columnas-->
                 <th>Nombre</th>
                 <th>Edad</th>
                 <th>Ocupación</th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>Ejemplo</td>
+
+        <tbody id="tablaPersonas"> <!--cuerpo de la tabla, con el id--> 
+            <!-- <tr> --fila
+                <td>Ejemplo</td> --columna
                 <td>30</td>
                 <td>Desarrollador</td>
             </tr>
@@ -92,20 +94,21 @@
                 <td>Persona 2</td>
                 <td>25</td>
                 <td>Diseñador</td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 
     <script>
         let personas = []; //declaramos un vector vacío
         //Observamos el botón:
-        document.getElementById("agregar").addEventListener("click", function(){
-                //esta vez vamos a usar "name" en vez de "id"
+        document.getElementById("agregar").addEventListener("click", function () {
+            //esta vez vamos a usar "name" en vez de "id"
             let nombre = document.getElementById("nombre").value.trim();
             //trim() elimina los espacios en blanco
             let edad = document.getElementById("edad").value.trim();
             let ocupacion = document.getElementById("ocupacion").value.trim();
-            
+
+            //VALIDACIONES:
             //en caso de que estén vacíos:
             if (nombre === "" || edad === "" || ocupacion === "") {
                 alert("Por favor, completa todos los campos.");
@@ -114,7 +117,7 @@
 
             //creamos un objeto persona que agrupe los 3 campos:
             let persona = {
-                nombre: nombre, //etiqueta (campo): valor
+                nombre: nombre, //etiqueta (campo): valor --> podemos cambiar el nombre de la variable (nombre: nombreP) para que no coincida con la etiqueta si nos liamos, pero tendríamos que cambiar los nombres en las variables de arriba para que coincidan.
                 edad: edad,
                 ocupacion: ocupacion
             };
@@ -122,9 +125,40 @@
             //añadimos la persona al vector:
             personas.push(persona);
 
+            //LIMPIAR FORMULARIO:
+            document.getElementById("nombre").value = "";
+            document.getElementById("edad").value = "";
+            document.getElementById("ocupacion").value = "";
+
+            //ACTUALIZAR TABLA:
+            actualizarTabla();
+
 
         })
 
+        function actualizarTabla(){
+            let tabla = document.getElementById("tablaPersonas");
+            tabla.innerHTML = ""; //vaciamos la tabla, el contenido del body
+
+            //vamos a recorrer el vector con un for, aunque podríamos con un foreach:
+            for (let i= 0; i< personas.length; i++){
+                let fila = `
+                <tr>
+                    <td>${personas[i].nombre}</td> 
+                    <td>${personas[i].edad} </td>
+                    <td>${personas[i].ocupacion} </td>
+
+                </tr>
+              
+                `; //plantilla de fila
+                //cada vez que recorremos el for y construimos la variable "fila", queremos 
+                // se envíe la fila a la tabla para que se pueda ver:
+
+                tabla.innerHTML += fila; //añadimos la fila a la tabla
+
+            }
+
+        }
 
 
     </script>
