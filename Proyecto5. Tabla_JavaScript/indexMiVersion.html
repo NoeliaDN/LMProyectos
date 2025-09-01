@@ -70,7 +70,7 @@
             background-color: #f2f2f2;
         }
 
-        .genero{
+        /* .genero{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -80,8 +80,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px; /* espacio entre el input y el texto */
-        }
+            gap: 5px; /* espacio entre el input y el texto 
+         }
+        */
     </style>
 </head>
 
@@ -95,14 +96,7 @@
         <input type="number" id="edad" placeholder="Edad">
         <input type="text" id="ocupacion" placeholder="Ocupación"> <!--required ya no hace falta porque no es un form-->
         
-        <div class="genero">
-            <label> <input type="radio" name="genero" value="Masculino">Masculino</label>
-            <label> <input type="radio" name="genero" value="Femenino">Femenino</label>
-            <label> <input type="radio" name="genero" value="Otro">Otro</label>
-
-
-        </div>
-
+        
         
         <button id="agregar">Agregar Persona</button> <!--ponemos id para observar el botón-->
 

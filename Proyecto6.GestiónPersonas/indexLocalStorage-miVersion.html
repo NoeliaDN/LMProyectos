@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Modificación</title>
+    <style>
+        h1 {
+            color: #1e8335;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            text-shadow: 2px 2px 1px #cccaca;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e1eee2;
+        }
+
+        .contenedor {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        input,
+        button {
+            margin: 10px;
+            padding: 8px;
+            width: 90%;
+            font-size: 16px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            /* para que no haya doble borde */
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+
+        }
+
+        th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        tr {
+            background-color: #f2f2f2;
+        }
+
+        .genero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .genero label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            /* espacio entre el input y el texto */
+        }
+
+        .edit-button {
+            background: #ffc107;
+            color: black;
+        }
+
+        .delete-button {
+            background: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Formulario para Agregar y Modificar Personas</h2>
+
+        <div class="contenedor">
+            <input type="text" id="nombre" placeholder="Nombre">
+            <input type="number" id="edad" placeholder="Edad">
+            <input type="text" id="ocupacion" placeholder="Ocupación">
+
+            <div class="genero">
+                <label><input type="radio" name="genero" value="Masculino"> Masculino</label>
+                <label><input type="radio" name="genero" value="Femenino"> Femenino</label>
+                <label><input type="radio" name="genero" value="Otro"> Otro</label>
+            </div>
+
+            <button id="agregar">Agregar Persona</button>
+            <button id="actualizar" style="display: none;">Actualizar Persona</button>
+        </div>
+
+        <h2>Lista de Personas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Ocupación</th>
+                        <th>Género</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPersonas"></tbody>
+            </table>
+
+            <script>
+
+
+                let personas = []; //declaramos un vector vacío
+                //Observamos el botón:
+                document.getElementById("agregar").addEventListener("click", function () {
+                    //esta vez vamos a usar "name" en vez de "id"
+                    let nombre = document.getElementById("nombre").value.trim();
+                    //trim() elimina los espacios en blanco
+                    let edad = document.getElementById("edad").value.trim();
+                    let ocupacion = document.getElementById("ocupacion").value.trim();
+
+                    let generoSeleccionado = document.querySelector('input[name="genero"]:checked');
+                    let genero = generoSeleccionado ? generoSeleccionado.value : "No seleccionado";
+                    //si hay un género seleccionado, tomamos su valor; si no, asignamos "No seleccionado"
+
+                    //VALIDACIONES:
+                    //en caso de que estén vacíos:
+                    if (nombre === "" || edad === "" || ocupacion === "") {
+                        alert("Por favor, completa todos los campos.");
+                        return; // para que salga de la función y tenga la oportunidad de introducir datos de nuevo
+                    }
+
+                    //creamos un objeto persona que agrupe los 3 campos:
+                    let persona = {
+                        nombre: nombre, //etiqueta (campo): valor --> podemos cambiar el nombre de la variable (nombre: nombreP) para que no coincida con la etiqueta si nos liamos, pero tendríamos que cambiar los nombres en las variables de arriba para que coincidan.
+                        edad: edad,
+                        ocupacion: ocupacion,
+                        genero: genero
+                    };
+
+                    //añadimos la persona al vector:
+                    personas.push(persona);
+
+                    //LIMPIAR FORMULARIO:
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("edad").value = "";
+                    document.getElementById("ocupacion").value = "";
+
+                    if (generoSeleccionado) {
+                        generoSeleccionado.checked = false; //desmarcamos el género seleccionado
+                    }
+
+                    //ACTUALIZAR TABLA:
+                    actualizarTabla();
+
+
+                })
+
+                function actualizarTabla() {
+                    let tabla = document.getElementById("tablaPersonas");
+                    tabla.innerHTML = ""; //vaciamos la tabla, el contenido del body
+
+                    //vamos a recorrer el vector con un for, aunque podríamos con un foreach:
+                    for (let i = 0; i < personas.length; i++) {
+                        let fila = `
+                <tr>
+                    <td>${personas[i].nombre}</td> 
+                    <td>${personas[i].edad} </td>
+                    <td>${personas[i].ocupacion} </td>
+                    <td>${personas[i].genero} </td>
+
+                    <td><button onclick="borrarPersona(${i})">Eliminar</button></td> 
+
+                </tr>
+              
+                `; //plantilla de fila
+                        //cada vez que recorremos el for y construimos la variable "fila", queremos 
+                        // se envíe la fila a la tabla para que se pueda ver:
+
+                        tabla.innerHTML += fila; //añadimos la fila a la tabla
+
+                    }
+
+                }
+
+
+                function borrarPersona(index) { //recibe el índice de la persona a borrar
+                    personas.splice(index, 1); //elimina 1 elemento en la posición "index"
+                    actualizarTabla(); //actualiza la tabla para reflejar el cambio
+                }
+
+
+            </script>
+
+</body>
+
+</html>
