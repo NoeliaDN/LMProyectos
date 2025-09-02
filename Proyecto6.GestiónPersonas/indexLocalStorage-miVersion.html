@@ -90,8 +90,15 @@
             color: black;
         }
 
+        .edit-button:hover {
+            background: #e0a800;
+        }
+
         .delete-button {
-            background: #dc3545;
+            background: #d33041;
+        }
+        .delete-button:hover {
+            background: #c01d2e;
         }
     </style>
 </head>
@@ -133,6 +140,9 @@
 
 
                 let personas = []; //declaramos un vector vacío
+
+                let editIndex = -1; //para rastrear el índice de la persona que se está editando
+
                 //Observamos el botón:
                 document.getElementById("agregar").addEventListener("click", function () {
                     //esta vez vamos a usar "name" en vez de "id"
@@ -191,7 +201,8 @@
                     <td>${personas[i].ocupacion} </td>
                     <td>${personas[i].genero} </td>
 
-                    <td><button onclick="borrarPersona(${i})">Eliminar</button></td> 
+                    <td><button class="edit-button" onclick="editarPersona(${i})">Modificar</button>
+                    <button class="delete-button" onclick="borrarPersona(${i})">Eliminar</button></td>
 
                 </tr>
               
@@ -210,6 +221,90 @@
                     personas.splice(index, 1); //elimina 1 elemento en la posición "index"
                     actualizarTabla(); //actualiza la tabla para reflejar el cambio
                 }
+
+                function editarPersona(index){
+                    //traemos primero el objeto del índice que recibimos:
+                    let persona = personas[index];
+
+                    document.querySelector("#nombre").value = persona.nombre;
+                    document.querySelector("#edad").value = persona.edad;
+                    document.querySelector("#ocupacion").value = persona.ocupacion;
+
+                    //para el género, nos traemos en una variable todos los dario-buttons:
+
+                    let radios = document.querySelectorAll('input[name="genero"]');//traemos todos los inputs
+                    //cuyo nombre sea "genero"
+
+                    //los recorremos con un foreach y si el genero del objeto coincide con el valor
+                    //del input, lo marcamos como checked:
+
+                    radios.forEach( radio => {// radio es el elemento que estamos recorriendo
+                        
+                        if (radio.value === persona.genero){
+                            radio.checked = true; //lo marcamos
+                        }
+
+                    });
+
+                    //ocultamos el botón de agregar y mostramos el de actualizar:
+                    document.querySelector("#agregar").style.display = "none";
+                    document.querySelector("#actualizar").style.display = "block";
+
+                    editIndex = index; //guardamos el índice de la persona que se está editando
+
+                }
+
+                document.querySelector("#actualizar").addEventListener("click", function(){
+                    //si editIndex es -1, es el valor de inicio, por lo que no se ha pulsado 
+                    // el botón de actulizar, así que no se hace nada:
+
+                    if(editIndex === -1) return; //salimos de la función
+                    
+                    //Copiamos casi toda la función de agregar:
+
+                    let nombre = document.getElementById("nombre").value.trim();
+                    let edad = document.getElementById("edad").value.trim();
+                    let ocupacion = document.getElementById("ocupacion").value.trim();
+
+                    let generoSeleccionado = document.querySelector('input[name="genero"]:checked');
+                    let genero = generoSeleccionado ? generoSeleccionado.value : "No seleccionado";
+
+                    if (nombre === "" || edad === "" || ocupacion === "") {
+                        alert("Por favor, completa todos los campos.");
+                        return; 
+                    }
+
+                    //creamos el objeto persona:
+                    let persona = {
+                        nombre: nombre, 
+                        edad: edad,
+                        ocupacion: ocupacion,
+                        genero: genero
+                    };
+
+                    personas[editIndex] = persona; //actualizamos el objeto en el vector en la posición "index"
+                    // siendo index el índice de la persona que se está editando
+
+                    //LIMPIAR FORMULARIO:
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("edad").value = ""; 
+                    document.getElementById("ocupacion").value = "";
+                    if (generoSeleccionado) {
+                        generoSeleccionado.checked = false; //desmarcamos el género seleccionado
+                    }
+
+                    //ACTUALIZAR TABLA:
+                    actualizarTabla();
+
+                    //volvemos a mostrar el botón de agregar y ocultamos el de actualizar:
+                    document.querySelector("#agregar").style.display = "block";
+                    document.querySelector("#actualizar").style.display = "none";
+
+                    editIndex = -1; //reiniciamos editIndex, porque si no se queda actualizando la misma persona
+
+
+                });
+
 
 
             </script>
